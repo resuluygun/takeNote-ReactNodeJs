@@ -1,18 +1,19 @@
+//import apiController from "../controllers/apiController";
+
 
 const express = require("express");
 const router = express.Router();
+const apiController = require("../controllers/apiController")
 
 
 
-router.get('/customers',(req, res, next)=> {
 
-    const customers = [
-        {id: 1, firstName: "Resul", lastName: "Uygun"},
-        {id: 2, firstName: "Hesna", lastName: "Uygun"},
-        {id: 3, firstName: "Faruk", lastName: "Arslan"}
-    ];
-    res.json(customers);
+router.get('/test', apiController.getTestData);
 
-});
+// router.get('/customers', (req, res) => {
+    
+//     res.send(apiController.getCustomers());
+// });
+
 
 module.exports = router;

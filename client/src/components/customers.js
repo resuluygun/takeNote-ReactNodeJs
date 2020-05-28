@@ -11,21 +11,18 @@ function Customers() {
         .then(res => res.json())
         .then(customers => setCustomers(customers));
   });
-
   return (
     <div>
       <h2>Customers</h2>
       <ul>
         {
-            customers.map( customer => {
-                return <li key={customer.id}>{customer.firstName} {customer.lastName}</li>
-                }
-            )
+          customers.map( customer => {
+            return <li key={customer.id}>{customer.firstName} {customer.lastName}</li>
+            }
+          )
         }
-
       </ul>
     </div>
   );
 }
-
 export default Customers;
