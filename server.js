@@ -17,19 +17,19 @@ const User = require("./models/userModel");
 
 const app = express();
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect("mongodb+srv://admin-resul:test123@cluster0-xo02p.mongodb.net/noteDB?retryWrites=true&w=majority",{ useNewUrlParser: true , useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect("mongodb+srv://admin-resul:test123@cluster0-xo02p.mongodb.net/noteDB?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 mongoose.connection.on("error", err => {
     console.log(err);
 });
 
 app.use(session({
-    secret : "I am asecret",
-    resave : false,
-    saveUninitialized : true
+    secret: "I am asecret",
+    resave: false,
+    saveUninitialized: true
 }));
 
 // Initialize Passport and restore authentication state, if any, from the
@@ -45,28 +45,27 @@ app.use(passport.session());
 // that the password is correct and then invoke `done` with a user object, which
 // will be set at `req.user` in route handlers after authentication.
 passport.use(new LocalStrategy(
-    {usernameField : "email"},
-    function(username, password, done) {
-      User.findOne({email : username}, function(err, user) {
-        if (err) { return done(err); }
+    { usernameField: "email" },
+    function (username, password, done) {
+        User.findOne({ email: username }, function (err, user) {
+            if (err) { return done(err); }
 
-        if (!user)
-        {
-            return done(null, false, {message : "Incorrect mail."})
-        }
-        
-        bcrypt.compare(password, user.password, function(err, result){
-            if(err) console.log(err);
-            // result === true
-            if(result) return done(null, user);
-            else return done(null, false, {message : "Incorrect password"});
+            if (!user) {
+                return done(null, false, { message: "Incorrect mail." })
+            }
 
+            bcrypt.compare(password, user.password, function (err, result) {
+                if (err) console.log(err);
+                // result === true
+                if (result) return done(null, user);
+                else return done(null, false, { message: "Incorrect password" });
+
+            });
+
+            // if (user.password != password) { return done(null, false); }
+            // return done(null, user);
         });
-
-        // if (user.password != password) { return done(null, false); }
-        // return done(null, user);
-    });
-}));
+    }));
 
 
 // Configure Passport authenticated session persistence.
@@ -76,15 +75,15 @@ passport.use(new LocalStrategy(
 // typical implementation of this is as simple as supplying the user ID when
 // serializing, and querying the user record by ID from the database when
 // deserializing.
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user){
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
         done(err, user);
     })
-  
+
 });
 
 
