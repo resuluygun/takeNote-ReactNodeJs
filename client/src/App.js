@@ -1,66 +1,73 @@
-import React,  {useContext} from 'react';
+import React, { useEffect, useState } from 'react';
+
+//router
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
+//forRedux
+import store from "./redux/store";
+
+//components
 import Home from "./components/home";
 import Login from "./components/login";
 import Header from "./components/header"
 import Footer from "./components/footer"
+import Register from "./components/register";
 
 
+//css 
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import "/css/style.css";
-
 import './App.css';
+
+//requests
 import qs from "qs";
 import axios from "axios";
 
 
 function App() {
+  const [isLoading, setLoading] = useState(true);
+  store.subscribe(() => console.log(""));
 
+  useEffect(() => {
+    axios.get(
+      "/user/islogged").then(data => {
 
-  // axios({
-  //   method: "post",
-  //   url: "/user/login",
-  //   data: qs.stringify({
-  //     email: "fb@gmail.com",
-  //     password: "test123"
-  //   }),
-  //   headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
-  // })
-  //   .then(result => {
-  //     console.log(result);
-  //     axios.get("/note/getall")
-  //       .then(notes => console.log(notes));
-  //   }
-  //   );
+        if (data.data) store.dispatch({ type: "EXIST" })
+        else store.dispatch({ type: "NULL" })
 
-
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <Router>
+      {!isLoading && !store.getState() && <Redirect to="/login" />}
+      {!isLoading && store.getState() && <Redirect to="/home" />}
+
       <Header />
+      {/* <Switch> */}
 
-      {/* <Link to="/sign">Sign</Link>
-      <Link to="/home">Home</Link> */}
+      <Route path="/home">
+        <Home />
+      </Route>
 
-      <Switch>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
+      <Route path="/login">
+        <Login />
+      </Route>
 
+      <Route path="/register">
+        <Register />
+      </Route>
+
+      {/* </Switch> */}
       <Footer />
     </Router>
 
   );
 }
-
 export default App;

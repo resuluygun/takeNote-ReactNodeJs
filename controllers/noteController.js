@@ -4,9 +4,6 @@ const { v4: uuidv4 } = require('uuid');
 
 
 exports.createNote = function (req, res) {
-
-    if (!req.user) res.redirect("/user/login");
-    else {
         const note = { ...req.body, index: uuidv4() };
 
         Note.updateOne(
@@ -17,28 +14,21 @@ exports.createNote = function (req, res) {
             }
         )
         res.send("Note - Create")
-    }
 
 }
 
 exports.getAllNotes = function (req, res) {
-
-    if (!req.user) res.redirect("/user/login");
-    else {
         Note.findOne({ uid: req.user._id }, function (err, notes) {
             if (err) res.send(`Note - Gßet all notes - errorr ${err}`);
             //else res.send(`Note - Get all notes - notes ${notes}`);
             else res.json(notes);
         })
         //res.send("Note - Get all notes")
-    }
+    
 }
 exports.updateNote = function (req, res) {
 
-    if (!req.user) res.redirect("/user/login");
-    else {
         const { title, content, index } = req.body;
-
         Note.updateOne({ "uid": req.user._id, "noteArray.index": index }, {
             "$set": {
                 "noteArray.$.title": title,
@@ -49,15 +39,12 @@ exports.updateNote = function (req, res) {
         });
 
         res.send("Note - Update Note")
-    }
+    
 
 }
 exports.deleteNote = function (req, res) {
 
-    if (!req.user) res.redirect("/user/login");
-    else {
         const indexNote = req.body.index;
-
         Note.findOneAndUpdate({ uid: req.user._id }, {
             $pull: { noteArray: { index: indexNote } }
         },
@@ -67,5 +54,5 @@ exports.deleteNote = function (req, res) {
         );
         //Note.findOneAndUpdate({uid : userId})
         res.send("Note - Delete Note")
-    }
+    
 }

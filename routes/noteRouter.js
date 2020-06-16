@@ -2,7 +2,12 @@ const noteConrtoller = require("../controllers/noteController");
 const express = require("express");
 const router = express.Router();
 
-//router.route("/")
+//router.route("/")S
+
+router.use(function(req, res, next){
+        console.log("Noterouter middleware")
+        req.user ? next() : res.redirect("/user/login");
+})
 
 router.post("/create", noteConrtoller.createNote);
 

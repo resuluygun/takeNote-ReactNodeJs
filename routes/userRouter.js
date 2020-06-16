@@ -8,10 +8,16 @@ const userController = require("../controllers/userController");
 router.get("/", userController.index);
 
 router.route("/register")
+    .all(function (req, res, next) {
+        req.user ? res.redirect("/") : next();
+    })
     .get(userController.getRegisterUser)
     .post(userController.postRegisterUser);
 
 router.route("/login")
+    .all(function (req, res, next) {
+        req.user ? res.redirect("/") : next();
+    })
     .get(userController.getLoginUser)
     .post(userController.postLoginUser);
 

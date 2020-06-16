@@ -70,13 +70,19 @@ exports.postRegisterUser = function (req, res, next) {
                                     uid: user._id,
                                     noteArray: []
 
-                                }).save().then(note => {
-                                    passport.authenticate('local', {
-                                        successRedirect: '/',
-                                        failureRedirect: '/user/login',
-                                        failureFlash: false
-                                    })(req, res, next);
-                                });
+                                }).save()
+                                .then(note =>{
+                                    res.send({errors});
+                                   
+                                    
+                                })
+                                // .then(note => {
+                                //     passport.authenticate('local', {
+                                //         successRedirect: '/success',
+                                //         failureRedirect: '/failure',
+                                //         failureFlash: false
+                                //     })(req, res, next);
+                                // });
                                 // res.redirect('/user/login');
                             })
                             .catch(err => console.log(err));
@@ -97,16 +103,16 @@ exports.postLoginUser = function (req, res, next) {
     // res.send("User controller login - POST!")
 
     passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/user/login',
+        successRedirect: '/success',
+        failureRedirect: '/failure',
         failureFlash: false
     })(req, res, next);
 }
 
 exports.isLogged = function(req, res){
 
-    if(!req.user) res.send ("unLogged");
-    else res.send("logged");
+    if(!req.user) res.send (false);
+    else res.send(true);
 }
 
 exports.logoutUser = function(req, res){

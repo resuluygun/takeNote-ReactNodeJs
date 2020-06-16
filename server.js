@@ -1,4 +1,8 @@
 const express = require("express");
+
+const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -8,7 +12,6 @@ var LocalStrategy = require("passport-local").Strategy;
 
 const indexRouter = require("./routes/indexRouter");
 const userRouter = require("./routes/userRouter");
-const apiRouter = require("./routes/apiRouter");
 const noteRouter = require("./routes/noteRouter");
 
 //model
@@ -18,6 +21,7 @@ const User = require("./models/userModel");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 mongoose.connect("mongodb+srv://admin-resul:test123@cluster0-xo02p.mongodb.net/noteDB?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
@@ -87,9 +91,18 @@ passport.deserializeUser(function (id, done) {
 });
 
 
+// app.use(function(req, res, next){
+//     console.log("user "+req.user);    
+//     console.log(req.path);
+//     if(req.user || req.path==="/login") next();
+//     else{
+
+//         res.sendFile(path);
+//     }
+
+// });
 
 app.use("/", indexRouter);
-app.use("/api", apiRouter);
 app.use("/user", userRouter);
 app.use("/note", noteRouter);
 
