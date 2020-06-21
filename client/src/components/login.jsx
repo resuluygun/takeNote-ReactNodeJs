@@ -117,7 +117,7 @@ function Login() {
           </div>
         </div>
 
-        <div className="btn-warning">
+        <div className="btn-warning" >
           <p>Email or password isn't correct.</p>
         </div>
         <button type="submit" className="btn btn-primary btn-submit-register">Submit</button>

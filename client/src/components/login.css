@@ -19,7 +19,7 @@
 }
 
 .btn-submit-register{
-
+    margin-top: 10px;
     width:100%
 }
 
@@ -32,6 +32,7 @@
     color: #dc3545 !important;
 }
 .btn-warning p {
+    margin-top: 10px;
     margin-bottom: 0.50em;
 }
 

@@ -49,7 +49,7 @@ function App() {
       {!isLoading && !store.getState() && <Redirect to="/login" />}
       {!isLoading && store.getState() && <Redirect to="/home" />}
 
-      <Header />
+      {/* <Header /> */}
       {/* <Switch> */}
 
       <Route path="/home">
@@ -65,7 +65,7 @@ function App() {
       </Route>
 
       {/* </Switch> */}
-      <Footer />
+      {/* <Footer /> */}
     </Router>
 
   );
