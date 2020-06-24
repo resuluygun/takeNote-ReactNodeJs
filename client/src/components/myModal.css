@@ -21,11 +21,11 @@
     left : 50%;
     transform: translate(-50%,-50%);
     /* margin : 17% auto; */
-    /* padding : 12px; */
+    padding : 0px !important;
     border : 0px;
     border-radius: 12px;
     box-shadow : 1px 4px 10px grey;
-    width : 23%;
+    /* width : 23%; */
 
 }
 

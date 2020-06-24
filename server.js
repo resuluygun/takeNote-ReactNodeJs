@@ -1,8 +1,5 @@
 const express = require("express");
 
-const cors = require('cors');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -21,10 +18,11 @@ const User = require("./models/userModel");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+require('dotenv').config()
+
+mongoose.connect(process.env.DB_HOST+process.env.DB_USER+":"+process.env.DB_PASS+process.env.DB_CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 
-
-mongoose.connect("mongodb+srv://admin-resul:test123@cluster0-xo02p.mongodb.net/noteDB?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 mongoose.connection.on("error", err => {
     console.log(err);
@@ -106,8 +104,15 @@ app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/note", noteRouter);
 
-const port = 5000;
-app.listen(port, () => console.log("the server has started at port 5000"));
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 5000;
+}
+// const port = 5000;
+app.listen(port, () => console.log(`the server has started at port ${port}`));
+
+
+
 
 
 

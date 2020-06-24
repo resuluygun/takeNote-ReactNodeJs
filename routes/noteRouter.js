@@ -5,8 +5,7 @@ const router = express.Router();
 //router.route("/")S
 
 router.use(function(req, res, next){
-        console.log("Noterouter middleware")
-        req.user ? next() : res.redirect("/user/login");
+        req.user ? next() : res.send(false);
 })
 
 router.post("/create", noteConrtoller.createNote);

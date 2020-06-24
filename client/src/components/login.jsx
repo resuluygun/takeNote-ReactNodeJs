@@ -95,7 +95,7 @@ function Login() {
 
 
   return (
-    <div className="container col-xl-4 col-lg-5 col-md-6 col-sm-6 col-10">
+    <div className="container col-xl-3 col-lg-4 col-md-6 col-sm-6 col-10">
       <form className="loginForm" onSubmit={handleSubmit}>
         <div className="form-group">
           <label for="emailElement">Email address</label>

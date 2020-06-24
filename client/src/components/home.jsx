@@ -4,9 +4,9 @@ import Header from "../components/header"
 import Footer from "../components/footer"
 import CreateArea from "../components/createarea"
 import Note from "../components/note"
-import Modal from "../components/modal"
 import MyModal from "../components/myModal"
 
+import {useHistory} from "react-router-dom"
 
 import axios from "axios";
 import qs from "qs";
@@ -17,6 +17,9 @@ import qs from "qs";
 
 
 function Home() {
+
+    let history = useHistory();
+
 
     const [notes, setNotes] = useState([]);
     const [localNote, setLocalNote] = useState({ title: "", content: "" });
@@ -43,7 +46,7 @@ function Home() {
         }).then(result => {
 
             if (result.data === true) setNotes(prev => { return [...prev, object] })
-            else console.log("false");
+            else history.replace("/login")
             // console.log(result);
         })
     }
@@ -60,8 +63,8 @@ function Home() {
             }
         })
             .then(result => {
-                //console.log(result.data);
-                if (result.data) {
+                // console.log(result.data);
+                if (result.data === true) {
                     setNotes(prevValue => {
                         return prevValue.filter((value, index) => {
                             //console.log(value+" "+index);
@@ -70,6 +73,8 @@ function Home() {
                         })
                     })
                 }
+                else  history.replace("/login")
+
             })
     }
 
@@ -87,19 +92,21 @@ function Home() {
                 "content-type": "application/x-www-form-urlencoded;charset=utf-8"
             }
         }).then(result => {
-            if(result.data === true){
+            if (result.data === true) {
 
-                setNotes(prevValues =>{
-                    return prevValues.map(function(note){
+                setNotes(prevValues => {
+                    return prevValues.map(function (note) {
                         return note.index === updatedNote.index ? updatedNote : note
                     })
                 })
 
             }
-            
+            else  history.replace("/login")
+
+
         })
 
-        console.log(updatedNote)
+        // console.log(updatedNote)
 
     }
 
@@ -110,12 +117,6 @@ function Home() {
         }))
 
         setShowModal(!showModal);
-        // console.log(arrayIndex + " " + noteIndex);
-
-        //  window.$("#exampleModal").modal("show");
-        // window.document.getElementById("exampleModal").modal();
-
-
     }
 
     function closeModal() {
@@ -125,15 +126,19 @@ function Home() {
     return (
         <div>
             <Header />
+
             <CreateArea add={addNote} />
-            {notes.map((note, index) => {
 
-                return <Note key={index} id={index} index={note.index} delete={deleteNote} getModal={openModal} title={note.title} content={note.content} />
-            })}
+            {/* <div id="note_main_div"> */}
+                {notes.map((note, index) => {
 
+                    return <Note key={index} id={index} index={note.index} delete={deleteNote} getModal={openModal} title={note.title} content={note.content} />
+                })}
+            {/* </div> */}
             {/* <Modal note={localNote} />  */}
             {showModal && <MyModal close={closeModal} update={updateModal} note={localNote} />}
             <Footer />
+
         </div>
     );
 }

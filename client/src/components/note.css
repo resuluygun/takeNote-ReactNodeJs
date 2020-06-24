@@ -9,9 +9,16 @@
     border-radius: 12px !important;
     float: left;
     margin :7px;
-
-
+    width: 20rem
 }
+
+#note_main_div{
+
+    width : fit-content !important;
+    height: 100%;
+    margin : auto
+}
+
 
 .deleteIcon {
     background-color: #fff;

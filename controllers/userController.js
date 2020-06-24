@@ -76,14 +76,6 @@ exports.postRegisterUser = function (req, res, next) {
                                    
                                     
                                 })
-                                // .then(note => {
-                                //     passport.authenticate('local', {
-                                //         successRedirect: '/success',
-                                //         failureRedirect: '/failure',
-                                //         failureFlash: false
-                                //     })(req, res, next);
-                                // });
-                                // res.redirect('/user/login');
                             })
                             .catch(err => console.log(err));
                     });
@@ -99,7 +91,6 @@ exports.getLoginUser = function (req, res) {
 }
 
 exports.postLoginUser = function (req, res, next) {
-    console.log(req.body)
     // res.send("User controller login - POST!")
 
     passport.authenticate('local', {

@@ -28,7 +28,7 @@ function MyModal(props) {
 
     window.onclick = function (event) {
         // // console.log("window called and target :")
-        console.log(event.target);
+        // console.log(event.target);
 
         myModal = document.getElementById("myModal");
         if (event.target === myModal) closeModal()
@@ -42,7 +42,7 @@ function MyModal(props) {
     //for update note in the modal
     function handleChange(event) {
         const { name, value } = event.target
-        console.log(name, value);
+        // console.log(name, value);
 
         setModalNote(prevNote => {
             return {
@@ -50,7 +50,7 @@ function MyModal(props) {
                 [name]: value
             }
         })
-        console.log(modalNote)
+        // console.log(modalNote)
 
     }
 
@@ -59,10 +59,10 @@ function MyModal(props) {
 
 
         // Modal
-        <div id="myModal" className="customModal">
+        <div id="myModal" className="customModal ">
 
             {/* Modal Content */}
-            <div className="customModal-content" >
+            <div className="customModal-content col-xl-3 col-lg-4 col-md-6 col-sm-6 col-10" >
 
                 <button onClick={closeModal} id="modalClose">&times;</button>
                 <form id="formPadding">

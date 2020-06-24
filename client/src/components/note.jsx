@@ -25,14 +25,14 @@ function Note(props) {
     }
     return (
 
-        <div className="card" style={{ width: "18rem" }}>
+        <div className="card">
             <div className="card-body">
                 <h5 className="card-title">{props.title}</h5>
                 <p className="card-text">{props.content}</p>
                 <button className="deleteIcon" onClick={deleteClicked}> <DeleteIcon style={{ color: "red" }} /></button>
 
                 {/* <button onClick={updateClicked} type="button" data-toggle="modal" data-target="#exampleModal"  className="editIcon"> <EditIcon /> </button> */}
-                <button onClick={openModalClicked} type="button" className="editIcon"> <EditIcon /> </button>
+                <button onClick={openModalClicked} type="button" className="editIcon"> <EditIcon style={{ color: "blue" }} /> </button>
 
             </div>
         </div>

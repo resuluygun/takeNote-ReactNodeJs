@@ -15,7 +15,11 @@
     opacity : 1.0
 }
 .container{
-    margin: auto;
+    position: fixed !important;
+    transform: translate(-50%,-50%);
+    top : 50%;
+    left: 50%;
+    /* margin: auto; */
 }
 
 .btn-submit-register{
